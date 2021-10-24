@@ -1,0 +1,11 @@
+{
+  "name": "aeronode",
+  "version": "1.0.0",
+  "description": "Proyecto Prueba para registrar un vuelo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JOSE ROBLES",
+  "license": "MIT"
+}
