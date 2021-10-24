@@ -111,9 +111,33 @@ const updateFlight = (request, response) => {
 
 };
 
+/**
+ * Elimina un vuelo
+ * @param {request} request 
+ * @param {response} response 
+ */
+const deleteFlight = (request, response) => {
+  const { id } = request.params;
+  console.log({id});
+
+  if (isNaN(id)) {
+    return response.status(400).json({
+      ok: false,
+      message: 'Id inválido',
+    });
+  }
+
+  response.json({
+    ok: true,
+    message: 'Vuelo eliminado correctamente'
+  });
+
+}
+
 module.exports = {
   getFlights,
   getFlight,
   createFlight,
-  updateFlight
+  updateFlight,
+  deleteFlight
 };
