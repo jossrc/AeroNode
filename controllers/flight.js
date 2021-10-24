@@ -81,8 +81,39 @@ const createFlight = (request, response) => {
   });
 };
 
+/**
+ * Actualiza un vuelo
+ * @param {request} request 
+ * @param {response} response 
+ */
+const updateFlight = (request, response) => {
+  const { body } = request;
+  const { id } = request.params;
+  console.log({id});
+
+  if (isNaN(id)) {
+    return response.status(400).json({
+      ok: false,
+      message: 'Id inválido',
+    });
+  }
+
+  // Buscar por su id
+  console.log({body});
+
+  response.json({
+    ok: true,
+    message: 'Vuelo actualizado correctamente',
+    flight: {
+      id: 1
+    }
+  });
+
+};
+
 module.exports = {
   getFlights,
   getFlight,
-  createFlight
+  createFlight,
+  updateFlight
 };
