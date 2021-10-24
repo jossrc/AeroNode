@@ -8,6 +8,7 @@ const {
   getFlight,
   createFlight,
   updateFlight,
+  deleteFlight
 } = require('../controllers/flight');
 
 // Listado de vuelos
@@ -21,5 +22,8 @@ router.post('/', createFlight);
 
 // Actualizar un vuelo
 router.put('/:id', updateFlight);
+
+// Eliminar un vuelo
+router.delete('/:id', deleteFlight);
 
 module.exports = router;
