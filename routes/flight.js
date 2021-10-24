@@ -3,7 +3,12 @@ const { Router } = require('express');
 const router = Router();
 
 // Controladores
-const { getFlights, getFlight, createFlight } = require('../controllers/flight');
+const {
+  getFlights,
+  getFlight,
+  createFlight,
+  updateFlight,
+} = require('../controllers/flight');
 
 // Listado de vuelos
 router.get('/', getFlights);
@@ -13,5 +18,8 @@ router.get('/:id', getFlight);
 
 // Registrar un vuelo
 router.post('/', createFlight);
+
+// Actualizar un vuelo
+router.put('/:id', updateFlight);
 
 module.exports = router;
