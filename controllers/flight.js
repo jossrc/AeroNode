@@ -62,7 +62,27 @@ const getFlight = (request, response) => {
   });
 };
 
+/**
+ * Registra un vuelo
+ * @param {request} request 
+ * @param {response} response 
+ */
+const createFlight = (request, response) => {
+  const { body } = request;
+
+  console.log({body});
+
+  response.json({
+    ok: true,
+    message: 'Vuelo registrado correctamente',
+    flight: {
+      id: 1
+    }
+  });
+};
+
 module.exports = {
   getFlights,
-  getFlight
+  getFlight,
+  createFlight
 };
