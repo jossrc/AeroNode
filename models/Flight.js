@@ -44,6 +44,8 @@ const Flight = db.define('Flight', {
     allowNull: false,
     defaultValue: 'EN ESPERA',
   },
+}, {
+  timestamps: false,
 });
 
 module.exports = Flight;
