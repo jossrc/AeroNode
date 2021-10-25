@@ -1,28 +1,18 @@
 const { request, response } = require('express');
+const Flight = require('../models/Flight');
 
 /**
  * Obtiene todos los vuelos
  * @param {request} request Request
  * @param {response} response Response
  */
-const getFlights = (request, response) => {
+const getFlights = async (request, response) => {
+  const flights = await Flight.findAll();
+
   response.json({
     ok: true,
     message: 'Vuelos obtenidos correctamente',
-    flights: [
-      {
-        id: 1,
-        initialDestination: 'Perú',
-        finalDestination: 'Colombia',
-        dayOfExit: '2020-05-05',
-        dayofArrival: '2020-05-06',
-        departureTime: '10:00',
-        arrivalTime: '12:00',
-        plane: 'Avianca',
-        seatsNumber: 100,
-        status: 'En espera',
-      },
-    ],
+    flights,
   });
 };
 
@@ -31,8 +21,7 @@ const getFlights = (request, response) => {
  * @param {request} request Request
  * @param {response} response Response
  */
-const getFlight = (request, response) => {
-
+const getFlight = async (request, response) => {
   const { id } = request.params;
 
   if (isNaN(id)) {
@@ -41,55 +30,42 @@ const getFlight = (request, response) => {
       message: 'Id inválido',
     });
   }
-  
-  console.log({id});
+
+  const flight = await Flight.findByPk(id);
 
   response.json({
     ok: true,
     message: 'Vuelo obtenido correctamente',
-    flight: {
-      id: 1,
-      initialDestination: 'Perú',
-      finalDestination: 'Colombia',
-      dayOfExit: '2020-05-05',
-      dayofArrival: '2020-05-06',
-      departureTime: '10:00',
-      arrivalTime: '12:00',
-      plane: 'Avianca',
-      seatsNumber: 100,
-      status: 'En espera',
-    },
+    flight,
   });
 };
 
 /**
  * Registra un vuelo
- * @param {request} request 
- * @param {response} response 
+ * @param {request} request
+ * @param {response} response
  */
-const createFlight = (request, response) => {
+const createFlight = async (request, response) => {
   const { body } = request;
+  console.log({ body });
 
-  console.log({body});
+  const flight = await Flight.create(body);
 
   response.json({
     ok: true,
     message: 'Vuelo registrado correctamente',
-    flight: {
-      id: 1
-    }
+    flight,
   });
 };
 
 /**
  * Actualiza un vuelo
- * @param {request} request 
- * @param {response} response 
+ * @param {request} request
+ * @param {response} response
  */
-const updateFlight = (request, response) => {
+const updateFlight = async (request, response) => {
   const { body } = request;
   const { id } = request.params;
-  console.log({id});
 
   if (isNaN(id)) {
     return response.status(400).json({
@@ -98,27 +74,26 @@ const updateFlight = (request, response) => {
     });
   }
 
-  // Buscar por su id
-  console.log({body});
+  // Obtenemos el vuelo
+  const flight = await Flight.findByPk(id);
+
+  // Actualizamos los datos
+  await flight.update(body);
 
   response.json({
     ok: true,
     message: 'Vuelo actualizado correctamente',
-    flight: {
-      id: 1
-    }
+    flight,
   });
-
 };
 
 /**
  * Elimina un vuelo
- * @param {request} request 
- * @param {response} response 
+ * @param {request} request
+ * @param {response} response
  */
-const deleteFlight = (request, response) => {
+const deleteFlight = async (request, response) => {
   const { id } = request.params;
-  console.log({id});
 
   if (isNaN(id)) {
     return response.status(400).json({
@@ -127,17 +102,22 @@ const deleteFlight = (request, response) => {
     });
   }
 
+  // Obtenemos el vuelo
+  const flight = await Flight.findByPk(id);
+
+  // Eliminamos el vuelo
+  await flight.destroy();
+
   response.json({
     ok: true,
-    message: 'Vuelo eliminado correctamente'
+    message: `Vuelo con id ${id} eliminado correctamente`,
   });
-
-}
+};
 
 module.exports = {
   getFlights,
   getFlight,
   createFlight,
   updateFlight,
-  deleteFlight
+  deleteFlight,
 };
