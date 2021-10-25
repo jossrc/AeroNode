@@ -6,3 +6,4 @@ para el aprendizaje de Node.
 Para probar la siguiente app:
 - Tener instalado Node
 - Ejecute el siguiente comando: `npm install`
+- Finalmente ejecutar el comando: `node index.js`
